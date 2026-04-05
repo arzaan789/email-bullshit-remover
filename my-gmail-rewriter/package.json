@@ -1,0 +1,14 @@
+{
+  "name": "gmail-email-rewriter",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node esbuild.config.mjs"
+  },
+  "dependencies": {
+    "@mlc-ai/web-llm": "^0.2.82"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}
