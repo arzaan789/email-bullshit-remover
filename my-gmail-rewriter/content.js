@@ -458,7 +458,8 @@ async function rewriteOpenedEmail() {
 
     try {
         const subjectElement = document.querySelector('h2.hP');
-        const bodyElement = document.querySelector('div.a3s.aiL');
+        const bodyElements = document.querySelectorAll('div.a3s.aiL');
+        const bodyElement = bodyElements.length > 0 ? bodyElements[bodyElements.length - 1] : null;
 
         if (!subjectElement || !bodyElement) {
             console.warn("Gmail Email Rewriter (content.js): Subject or body element not found in opened email. Exiting rewriteOpenedEmail."); // Added log
@@ -473,7 +474,10 @@ async function rewriteOpenedEmail() {
         }
         
         const originalSubject = subjectElement.textContent.trim();
-        const originalContent = bodyElement.textContent.trim();
+        // Clone the body and remove quoted replies to get only the latest email's text
+        const bodyClone = bodyElement.cloneNode(true);
+        bodyClone.querySelectorAll('.gmail_quote, blockquote').forEach(el => el.remove());
+        const originalContent = bodyClone.textContent.trim();
 
         // Show inline processing state
         if (useSidePanelFallback) {

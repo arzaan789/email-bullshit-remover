@@ -276,7 +276,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 target: { tabId: tabId },
                 function: () => {
                     const subjectElement = document.querySelector('h2.hP');
-                    const bodyElement = document.querySelector('div.a3s.aiL');
+                    const bodyElements = document.querySelectorAll('div.a3s.aiL');
+                    const bodyElement = bodyElements.length > 0 ? bodyElements[bodyElements.length - 1] : null;
                     if (subjectElement && bodyElement) {
                         chrome.runtime.sendMessage({
                             action: "displayEmailInPopup",
